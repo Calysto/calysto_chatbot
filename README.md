@@ -1,12 +1,12 @@
 
-You can install Calysto Chatbot with Python:
+You can install Calysto Chatbot into the system folders:
 
 ```
-pip install --upgrade calysto_chatbot
-python -m calysto_chatbot install
+sudo pip install --upgrade calysto_chatbot
+sudo python -m calysto_chatbot install
 ```
 
-or in the user folder with:
+or into the user folder with:
 
 ```
 pip install --upgrade calysto_chatbot --user
