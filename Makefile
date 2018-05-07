@@ -1,3 +1,13 @@
-all:
-	python setup.py register
-	python setup.py sdist --formats=gztar,zip upload
+export VERSION=`python3 setup.py --version 2>/dev/null`
+
+release: 
+	pip3 install wheel twine setuptools --user
+	rm -rf dist
+	python3 setup.py register
+	python3 setup.py bdist_wheel --universal
+	python3 setup.py sdist --formats=zip
+	git commit -a -m "Release $(VERSION)"; true
+	git tag v$(VERSION)
+	git push origin --all
+	git push origin --tags
+	twine upload dist/*

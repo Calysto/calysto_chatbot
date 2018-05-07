@@ -1,9 +1,7 @@
-from distutils.command.install import install
-from distutils.core import setup
-from distutils import log
-import os
-import json
+import io
 import sys
+
+from setuptools import find_packages, setup
 
 kernel_json = {
     "argv": [sys.executable, 
@@ -14,37 +12,14 @@ kernel_json = {
     "name": "calysto_chatbot"
 }
 
-class install_with_kernelspec(install):
-    def run(self):
-        install.run(self)
-        from IPython.kernel.kernelspec import install_kernel_spec
-        from IPython.utils.tempdir import TemporaryDirectory
-        from metakernel.utils.kernel import install_kernel_resources
-        with TemporaryDirectory() as td:
-            os.chmod(td, 0o755) # Starts off as 700, not user readable
-            with open(os.path.join(td, 'kernel.json'), 'w') as f:
-                json.dump(kernel_json, f, sort_keys=True)
-            install_kernel_resources(td, resource="calysto_chatbot")
-            log.info('Installing kernel spec')
-            try:
-                install_kernel_spec(td, 'calysto_chatbot', replace=True)
-            except:
-                install_kernel_spec(td, 'calysto_chatbot', user=self.user, replace=True)
-
-
-svem_flag = '--single-version-externally-managed'
-if svem_flag in sys.argv:
-    # Die, setuptools, die.
-    sys.argv.remove(svem_flag)
-
-with open('calysto_chatbot/__init__.py', 'rb') as fid:
+with io.open('calysto_chatbot/__init__.py', 'rb') as fid:
     for line in fid:
         line = line.decode('utf-8')
         if line.startswith('__version__'):
             __version__ = line.strip().split()[-1][1:-1]
             break
 
-with open('README.md') as f:
+with io.open('README.md') as f:
     readme = f.read()
 
 setup(name='calysto_chatbot',
@@ -54,9 +29,8 @@ setup(name='calysto_chatbot',
       url="https://github.com/Calysto/calysto_chatbot",
       author='Douglas Blank',
       author_email='doug.blank@gmail.com',
-      packages=['calysto_chatbot'],
+      packages=find_packages(include=["calysto_chatbot", "calysto_chatbot.*"]),
       install_requires=["metakernel", "aiml"],
-      cmdclass={'install': install_with_kernelspec},
       classifiers = [
           'Framework :: IPython',
           'License :: OSI Approved :: BSD License',
