@@ -1,3 +1,5 @@
+Install
+=======
 
 You can install Calysto Chatbot into the system folders:
 
@@ -21,7 +23,26 @@ jupyter qtconsole --kernel calysto_chatbot
 jupyter notebook 
 ```
 
-Requires (installed automatically with pip):
+Usage
+=====
+
+Use "load NAME" to load collection of rules, like:
+
+```
+load alice
+```
+
+You can also use the %learn magic, like:
+
+```
+%learn {AIML_PATH}/standard/startup.xml
+load aiml b
+```
+
+`{AIML_PATH}` gets expanded to system chatbot rules dictionary.
+
+Requires (installed automatically with pip)
+===========================================
 
 * aiml
 * jupyter
