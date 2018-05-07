@@ -3,26 +3,28 @@ You can install Calysto Chatbot with Python:
 
 ```
 pip install --upgrade calysto_chatbot
+python -m calysto_chatbot install
 ```
 
-or in the system kernel folder with:
+or in the user folder with:
 
 ```
-sudo pip install --upgrade calysto_chatbot
+pip install --upgrade calysto_chatbot --user
+python -m calysto_chatbot install --user
 ```
 
-Use it in the console, qtconsole, or notebook with IPython:
+Use it in the console, qtconsole, or notebook with Jupyter:
 
 ```
-ipython console --kernel calysto_chatbot
-ipython qtconsole --kernel calysto_chatbot
-ipython notebook 
+jupyter console --kernel calysto_chatbot
+jupyter qtconsole --kernel calysto_chatbot
+jupyter notebook 
 ```
 
-Requires:
+Requires (installed automatically with pip):
 
 * aiml
-* ipython-3.0
+* jupyter
 * Python2 or Python3
-* metakernel (installed automatically)
+* metakernel
 
